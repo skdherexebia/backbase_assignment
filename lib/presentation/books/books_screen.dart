@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:backbase/common/extensions/sized_box_extension.dart';
 import 'package:backbase/common/extensions/snackbar_extension.dart';
 import 'package:backbase/common/theme/app_colors.dart';
+import 'package:backbase/common/theme/app_theme.dart';
 import 'package:backbase/core/di/service_locator.dart';
 import 'package:backbase/presentation/books/books_cubit.dart';
 import 'package:backbase/presentation/books/widgets/book_list.dart';
@@ -88,7 +89,7 @@ class _BooksScreenState extends State<BooksScreen> {
                               } else if (state is ShowShimmer) {
                                 return ShimmerList();
                               } else {
-                                return Text("No Books found!");
+                                return Text("Start typing a book title to search.",style: Theme.of(context).textTheme.appText16Primary(context),);
                               }
                             },
                           ),

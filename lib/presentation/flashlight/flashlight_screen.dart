@@ -37,15 +37,16 @@ class _FlashlightScreenState extends State<FlashlightScreen> {
           title: Text("Flashlight", style: TextStyle(color: AppColors.white)),
         ),
         backgroundColor: AppColors.backgroundDarkShadeOrange,
-        body: Container(
-          padding: EdgeInsets.all(14),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              BlocBuilder<FlashlightCubit, FlashlightState>(
-                builder: (context, state) {
-                  if (state is TurnOffFlashlight) {
-                   return Center(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            BlocBuilder<FlashlightCubit, FlashlightState>(
+              builder: (context, state) {
+                if (state is TurnOffFlashlight) {
+                 return Center(
+                    child: SizedBox(
+                      width: 200,
+                      height: 30,
                       child: ElevatedButton(
                         onPressed: () {
                           _flashlightCubit.turnOnFlashlight();
@@ -65,9 +66,14 @@ class _FlashlightScreenState extends State<FlashlightScreen> {
                           children: [Text("Turn On")],
                         ),
                       ),
-                    );
-                  } else {
-                    return Center(
+                    ),
+                  );
+                } else {
+                  return Center(
+                    
+                    child: SizedBox(
+                       width: 200,
+                      height: 30,
                       child: ElevatedButton(
                         onPressed: () {
                           _flashlightCubit.turnOffFlashlight();
@@ -75,8 +81,8 @@ class _FlashlightScreenState extends State<FlashlightScreen> {
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size.zero,
                           padding: EdgeInsets.zero,
-                          backgroundColor: AppColors.secondary,
-                          shadowColor: AppColors.primary,
+                          backgroundColor: AppColors.redColor,
+                          shadowColor: AppColors.redColor,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -87,12 +93,12 @@ class _FlashlightScreenState extends State<FlashlightScreen> {
                           children: [Text("Turn Off")],
                         ),
                       ),
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
         ),
       ),
     );

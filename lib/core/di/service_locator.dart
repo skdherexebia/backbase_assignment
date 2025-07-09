@@ -14,8 +14,9 @@ Future configurePreRequisites({required Function() completion}) async {
     
   block_module.setUpBloc();
   endpoints.setupEndpoints();
-  _setupDefaultDio();
   repository.setupRepositories();
+
+  _setupDefaultDio();
   completion();
 }
 

@@ -7,6 +7,7 @@ import 'package:backbase/domain/use_case/dashboard/get_os_version_use_case.dart'
 import 'package:backbase/domain/use_case/flashlight/turn_off_use_case.dart';
 import 'package:backbase/domain/use_case/flashlight/turn_on_use_case.dart';
 import 'package:backbase/domain/use_case/get_book_use_case.dart';
+import 'package:backbase/domain/use_case/remove_book_use_case.dart';
 import 'package:backbase/domain/use_case/save_book_use_case.dart';
 import 'package:backbase/presentation/book_details/book_details_cubit.dart';
 import 'package:backbase/presentation/books/books_cubit.dart';
@@ -34,9 +35,10 @@ void _setupBooksCubit() {
 }
 
 void _setupBookDetailsCubit() {
-  locator.registerFactory(() => BookDetailsCubit(locator.get(),locator.get()));
+  locator.registerFactory(() => BookDetailsCubit(locator.get(),locator.get(),locator.get()));
   locator.registerFactory(() => SaveBookUseCase(locator.get()));
   locator.registerFactory(() => GetBookUseCase(locator.get()));
+  locator.registerFactory(() => RemoveBookUseCase(locator.get()));
 }
 
 void _setMyBooksCubit() {

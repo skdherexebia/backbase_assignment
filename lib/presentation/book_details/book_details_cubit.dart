@@ -1,13 +1,15 @@
 import 'package:backbase/domain/entity/books_response_entity.dart';
 import 'package:backbase/domain/use_case/get_book_use_case.dart';
+import 'package:backbase/domain/use_case/remove_book_use_case.dart';
 import 'package:backbase/domain/use_case/save_book_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'book_details_state.dart';
 
 class BookDetailsCubit extends Cubit<BooksDetailsState> {
-  BookDetailsCubit(this._saveBookUseCase, this._getBookUseCase) : super(BooksDetailsInitial());
+  BookDetailsCubit(this._saveBookUseCase, this._getBookUseCase, this._removeBookUseCase) : super(BooksDetailsInitial());
 
   final SaveBookUseCase _saveBookUseCase;
+  final RemoveBookUseCase _removeBookUseCase;
   final GetBookUseCase _getBookUseCase;
 
   DocsEntity book = DocsEntity(title: '', key: '');
@@ -41,7 +43,7 @@ class BookDetailsCubit extends Cubit<BooksDetailsState> {
   }
 
   removeBook() async {
-    bool res = await _saveBookUseCase.call(params: book);
+    bool res = await _removeBookUseCase.call(params: book);
     if (res) {
        emit(AddToMyBookSuccessState("Book removed successfully"));
        getBookStatus();

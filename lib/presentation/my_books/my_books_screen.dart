@@ -24,7 +24,7 @@ class _MyBooksScreenState extends State<MyBooksScreen> {
     super.initState();
     _myBooksCubit = locator.get<MyBooksCubit>();
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => _myBooksCubit.getBooks(''),
+      (_) => _myBooksCubit.getBooks(),
     );
   }
 

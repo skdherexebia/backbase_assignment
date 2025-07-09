@@ -9,7 +9,7 @@ sealed class BooksState {
 final class BooksInitial extends BooksState {}
 
 final class BooksFetched extends BooksState {
-  final List<DocsEntity> list;
+   List<DocsEntity> list;
 
   BooksFetched(this.list);
 
@@ -18,14 +18,14 @@ final class BooksFetched extends BooksState {
 final class ShowShimmer extends BooksState {}
 final class HideShimmer extends BooksState {}
 final class BookDetails extends BooksState {
-  final String id;
+   String id;
 
   BookDetails(this.id);
 
 }
 
 final class FailState extends BooksState {
-  final String message;
+   String message;
   FailState(this.message);
 }
 

@@ -1,10 +1,12 @@
+import 'package:backbase/common/extensions/image_url_extension.dart';
 import 'package:backbase/common/extensions/sized_box_extension.dart';
 import 'package:backbase/common/theme/app_colors.dart';
-import 'package:backbase/core/di/service_locator.dart';
+import 'package:backbase/core/app_router/route_constant.dart';
+import 'package:backbase/domain/entity/books_response_entity.dart';
 import 'package:backbase/domain/my_books/entity/my_book_entity.dart';
-import 'package:backbase/presentation/my_books/my_books_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MyBookItem extends StatelessWidget {
   const MyBookItem({super.key, required this.book});
@@ -14,8 +16,8 @@ class MyBookItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        locator.get<MyBooksCubit>().goToBookDetails(book);
+      onTap: () async{
+         context.pushNamed(AppRouteConstants.bookDetailsRouteName, extra: DocsEntity(title: book.title, key: book.key,authorKey: book.authorKey,authorName: book.authorName,coverEditionKey: book.coverEditionKey,coverI: book.coverI));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -32,7 +34,7 @@ class MyBookItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6),
                 child: CachedNetworkImage(
                   imageUrl:
-                      'https://covers.openlibrary.org/b/id/${book.coverI}-M.jpg', // fallback image
+                      book.coverI.toString().toImageUrl(), // fallback image
                   width: 80,
                   height: 80,
                   placeholder:

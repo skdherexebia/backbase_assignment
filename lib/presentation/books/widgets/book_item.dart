@@ -1,5 +1,7 @@
+import 'package:backbase/common/extensions/image_url_extension.dart';
 import 'package:backbase/common/extensions/sized_box_extension.dart';
 import 'package:backbase/common/theme/app_colors.dart';
+import 'package:backbase/common/theme/app_theme.dart';
 import 'package:backbase/core/app_router/route_constant.dart';
 import 'package:backbase/domain/entity/books_response_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -20,6 +22,7 @@ class BookItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.white,
+          border: Border.all(color: AppColors.borderColor),
           borderRadius: BorderRadius.circular(8),
         ),
         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -31,8 +34,7 @@ class BookItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(6),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      'https://covers.openlibrary.org/b/id/${doc.coverI}-M.jpg', // fallback image
+                  imageUrl:doc.coverI.toString().toImageUrl(),
                   width: 80,
                   height: 80,
                   placeholder:
@@ -51,10 +53,7 @@ class BookItem extends StatelessWidget {
                   children: [
                     Text(
                       doc.title,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: Theme.of(context).textTheme.appText20Primary(context),
                       maxLines: 2,
                     ),
                     5.heightBox,

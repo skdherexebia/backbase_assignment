@@ -15,5 +15,7 @@ class AppColors {
   static const Color card = Color(0xFF42A5F5);               // Medium blue for cards
   static const Color textMain = Color(0xFF212121);           // Dark text
   static const Color textMuted = Color(0xFF757575);          // Muted gray text
-  static const Color borderColor = Color(0xFFE0E0E0);        // Light border
+  static const Color borderColor = Color(0xFFE0E0E0);  
+  static const Color redColor = Color(0xffFF3B30);    
+  // static const Color borderColor = Color(0xFFC4C4C4);        // Light border
 }

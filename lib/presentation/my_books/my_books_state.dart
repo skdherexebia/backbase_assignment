@@ -8,7 +8,7 @@ class MyBooksState {
   const MyBooksState();
 }
 
-final class BooksInitial extends MyBooksState {}
+final class MyBooksInitial extends MyBooksState {}
 
 final class BooksFetched extends MyBooksState {
   final List<MyBookEntity> list;

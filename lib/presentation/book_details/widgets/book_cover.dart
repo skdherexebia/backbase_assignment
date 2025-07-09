@@ -8,15 +8,12 @@ class BookCover extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 180,
-      height: 250,
+    return Container(
+      padding: EdgeInsets.all(16),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(6),
         child: CachedNetworkImage(
           imageUrl: imageUrl, 
-          width: 80,
-          height: 80,
           placeholder:
               (context, url) => Center(child: CircularProgressIndicator()),
           errorWidget:

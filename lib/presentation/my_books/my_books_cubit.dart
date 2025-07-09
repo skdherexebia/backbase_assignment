@@ -6,28 +6,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'my_books_state.dart';
 
 class MyBooksCubit extends Cubit<MyBooksState> {
-  MyBooksCubit(this._myBookUseCase) : super(BooksInitial());
+  MyBooksCubit(this._myBookUseCase) : super(MyBooksInitial());
 
   final MyBookUseCase _myBookUseCase;
   List<MyBookEntity> booksResponseEntity = [];
-  String searchText = '';
   
 
   Future<void> onRefresh() async {
-    getBooks(searchText);
+    getBooks();
   }
 
-  Future<void> getBooks(String searchKey) async {
+  Future<void> getBooks() async {
     emit(ShowShimmer());
-    searchText = searchKey;
     booksResponseEntity = await _myBookUseCase.call(params: NoParams());
     emit(HideShimmer());
     emit(BooksFetched(booksResponseEntity));
 
   }
 
-  goToBookDetails(MyBookEntity book)async{
-    // DocsEntity doc =DocsEntity(key:book.key , title: book.title,authorKey: book.authorKey,authorName: book.authorName,coverI: book.coverI,coverEditionKey: book.coverEditionKey) ;
-    emit(GoToBookDetail(DocsEntity(key: "",title: "")));
-  }
 }

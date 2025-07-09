@@ -8,19 +8,19 @@ class FlashlightRepositoryImpl extends FlashlightRepository {
   Future<bool> turnOff() async {
     try {
       await platform.invokeMethod('turnOff');
+      return true;
     } on PlatformException catch (_) {
       return false;
     }
-    return false;
   }
 
   @override
   Future<bool> turnOn() async {
     try {
       await platform.invokeMethod('turnOn');
-    } on PlatformException catch (_) {
+      return true;
+    } on PlatformException {
       return false;
     }
-    return false;
   }
 }

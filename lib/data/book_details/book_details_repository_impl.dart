@@ -3,10 +3,11 @@ import 'package:backbase/domain/entity/books_response_entity.dart';
 import 'package:backbase/domain/repository/book_details_repository.dart';
 
 class BookDetailsRepositoryImpl extends BookDetailsRepository {
-  final dbHelper = DatabaseHelper.instance;
+  
 
   @override
   Future<bool> getBook(DocsEntity book) async {
+    final dbHelper = DatabaseHelper.instance;
     final db = await dbHelper.database;
     var res = await db.rawQuery(
       "SELECT * FROM  books WHERE  cover_edition_key = ? ",
@@ -21,6 +22,7 @@ class BookDetailsRepositoryImpl extends BookDetailsRepository {
 
   @override
   Future<bool> saveBook(DocsEntity book) async {
+    final dbHelper = DatabaseHelper.instance;
     final db = await dbHelper.database;
 
     var res = await db.rawQuery(
@@ -40,22 +42,23 @@ class BookDetailsRepositoryImpl extends BookDetailsRepository {
         DateTime.now().toString(),
       ];
 
-      db.rawQuery(
+      await db.rawQuery(
         "INSERT into books (title,author,cover_edition_key,key,cover_i,description,created_date) VALUES (?,?,?,?,?,?,?)",
         data,
       );
       return true;
+
     }
   }
   
   @override
   Future<bool> removeBook(DocsEntity book) async {
+    final dbHelper = DatabaseHelper.instance;
     final db = await dbHelper.database;
      await db.rawQuery(
       "DELETE FROM  books WHERE  cover_edition_key = ? ",
       [book.coverEditionKey],
     );
-
     return true;
   }
 }
