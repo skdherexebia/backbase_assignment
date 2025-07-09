@@ -4,7 +4,7 @@
 part of 'my_books_cubit.dart';
 
 
-sealed class MyBooksState {
+class MyBooksState {
   const MyBooksState();
 }
 
@@ -24,5 +24,10 @@ final class BookDetails extends MyBooksState {
 
   BookDetails(this.id);
 
+}
+
+final class GoToBookDetail extends MyBooksState {
+  final DocsEntity doc;
+  GoToBookDetail(this.doc);
 }
 

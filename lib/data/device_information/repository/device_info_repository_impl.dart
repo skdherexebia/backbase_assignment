@@ -10,7 +10,7 @@ class DeviceInfoRepositoryImpl extends DeviceInfomationRepository {
   Future<String> getBatteryPercentage() async{
     try {
       final int result = await platform.invokeMethod('getBatteryLevel');
-      batteryLevel = 'Battery level: $result%';
+      batteryLevel = ' $result%';
 
     } on PlatformException catch (e) {
       batteryLevel = "Failed to get battery level: '${e.message}'.";

@@ -1,10 +1,8 @@
 import 'package:backbase/common/theme/app_colors.dart';
 import 'package:backbase/core/di/service_locator.dart';
-import 'package:backbase/presentation/dashboard/dashboard_cubit.dart';
 import 'package:backbase/presentation/flashlight/flashlight_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 
 class FlashlightScreen extends StatefulWidget {
   const FlashlightScreen({super.key});

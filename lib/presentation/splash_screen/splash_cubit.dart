@@ -6,7 +6,7 @@ class SplashCubit extends Cubit<SplashState> {
       : super(SplashInitial());
 
   goToHome() async{
-    await  Future.delayed(Duration(seconds: 1));
+    await  Future.delayed(Duration(seconds: 2));
     emit(NavigateToHome());
   }
 }

@@ -7,7 +7,6 @@ import 'package:backbase/presentation/book_details/book_details_cubit.dart';
 import 'package:backbase/presentation/book_details/widgets/book_cover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'dart:math';
 
 class BooksDetailsScreen extends StatefulWidget {
@@ -60,30 +59,30 @@ class _BooksScreenState extends State<BooksDetailsScreen>
       create: (context) => _bookDetailsCubit,
       child: BlocListener<BookDetailsCubit, BooksDetailsState>(
         listener: (context, state) {
-          if(state is AddToMyBookSuccessState){
+          if (state is AddToMyBookSuccessState) {
             context.showSnackbar(state.message);
-          } 
-          if(state is AddToMyBookSFailState){
-              context.showSnackbar(state.message,
-              backgroundColor: AppColors.secondary
+          }
+          if (state is AddToMyBookSFailState) {
+            context.showSnackbar(
+              state.message,
+              backgroundColor: AppColors.secondary,
             );
           }
-            
         },
-        child: BlocBuilder<BookDetailsCubit, BooksDetailsState>(
-          builder: (context, state) {
-            return Scaffold(
-              backgroundColor: AppColors.backgroundDarkShadeOrange,
-              appBar: AppBar(
-                iconTheme: IconThemeData(color: Colors.white),
-                backgroundColor: AppColors.primary,
-                title: Text(
-                  "Book Details",
-                  style: TextStyle(color: AppColors.white),
-                ),
-              ),
-              body: BlocBuilder<BookDetailsCubit, BooksDetailsState>(
-                buildWhen: 
+        child: Scaffold(
+          backgroundColor: AppColors.backgroundDarkShadeOrange,
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: AppColors.primary,
+            title: Text(
+              "Book Details",
+              style: TextStyle(color: AppColors.white),
+            ),
+          ),
+          body: Column(
+            children: [
+              BlocBuilder<BookDetailsCubit, BooksDetailsState>(
+                buildWhen:
                     (previous, current) =>
                         previous != current && current is DataSet,
                 builder: (context, state) {
@@ -153,13 +152,6 @@ class _BooksScreenState extends State<BooksDetailsScreen>
                             textAlign: TextAlign.center,
                           ),
                         ),
-
-                        InkWell(
-                          onTap: () {
-                            _bookDetailsCubit.saveBook();
-                          },
-                          child: Icon(Icons.heart_broken),
-                        ),
                       ],
                     );
                   } else {
@@ -167,8 +159,62 @@ class _BooksScreenState extends State<BooksDetailsScreen>
                   }
                 },
               ),
-            );
-          },
+              30.heightBox,
+              BlocBuilder<BookDetailsCubit, BooksDetailsState>(
+                builder: (context, state) {
+                  if (state is BookExistInMyBookState) {
+                    return SizedBox(
+                      width: 200,
+                      height: 30,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _bookDetailsCubit.removeBook();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size.zero,
+                          padding: EdgeInsets.zero,
+                          backgroundColor: AppColors.primary,
+                          shadowColor: AppColors.primary,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Text("Remove from my book")],
+                        ),
+                      ),
+                    );
+                  } else {
+                    return SizedBox(
+                      width: 200,
+                      height: 30,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _bookDetailsCubit.saveBook();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size.zero,
+                          padding: EdgeInsets.zero,
+                          backgroundColor: AppColors.primary,
+                          shadowColor: AppColors.primary,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Text("Add to My Book")],
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

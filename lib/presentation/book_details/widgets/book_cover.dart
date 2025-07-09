@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 
 class BookCover extends StatelessWidget {
   const BookCover({super.key, required this.imageUrl});
@@ -7,13 +8,20 @@ class BookCover extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 180,
       height: 250,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        image: DecorationImage(
-          image: NetworkImage(imageUrl),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(6),
+        child: CachedNetworkImage(
+          imageUrl: imageUrl, 
+          width: 80,
+          height: 80,
+          placeholder:
+              (context, url) => Center(child: CircularProgressIndicator()),
+          errorWidget:
+              (context, url, error) =>
+                  Icon(Icons.broken_image, color: Colors.red),
           fit: BoxFit.cover,
         ),
       ),

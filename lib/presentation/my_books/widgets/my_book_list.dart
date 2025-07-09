@@ -19,7 +19,7 @@ class MyBookList extends StatelessWidget {
       itemCount: list.length, separatorBuilder: (BuildContext context, int index) { 
         return 10.heightBox;
        },
-    ):Text("No Books found");
+    ):Center(child: Text("No Books found",style: TextStyle(fontSize: 20),));
     
   }
 }

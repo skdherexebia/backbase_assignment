@@ -47,4 +47,15 @@ class BookDetailsRepositoryImpl extends BookDetailsRepository {
       return true;
     }
   }
+  
+  @override
+  Future<bool> removeBook(DocsEntity book) async {
+    final db = await dbHelper.database;
+     await db.rawQuery(
+      "DELETE FROM  books WHERE  cover_edition_key = ? ",
+      [book.coverEditionKey],
+    );
+
+    return true;
+  }
 }

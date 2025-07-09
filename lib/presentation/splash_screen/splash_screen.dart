@@ -1,3 +1,4 @@
+import 'package:backbase/common/theme/app_colors.dart';
 import 'package:backbase/core/app_router/route_constant.dart';
 import 'package:backbase/core/di/service_locator.dart';
 import 'package:backbase/presentation/splash_screen/splash_cubit.dart';
@@ -17,9 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-   
     super.initState();
-     _splashcubit = locator.get<SplashCubit>();
+    _splashcubit = locator.get<SplashCubit>();
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => _splashcubit.goToHome(),
     );
@@ -31,22 +31,30 @@ class _SplashScreenState extends State<SplashScreen> {
       create: (context) => _splashcubit,
       child: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
-          if(state is NavigateToHome){
+          if (state is NavigateToHome) {
             context.go(AppRouteConstants.booksRouteName);
           }
         },
         child: Scaffold(
-          body: Container(
-            height: double.infinity,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Colors.transparent,
-              image: DecorationImage(
-                image: AssetImage('assets/images/splash.png'),
-                fit: BoxFit.fill,
-              ),
+          backgroundColor: AppColors.primary, // Use your theme color
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Backbase Demo",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 180),
+                const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ],
             ),
-            child: Text(""),
           ),
         ),
       ),

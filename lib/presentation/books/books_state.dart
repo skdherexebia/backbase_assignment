@@ -24,3 +24,8 @@ final class BookDetails extends BooksState {
 
 }
 
+final class FailState extends BooksState {
+  final String message;
+  FailState(this.message);
+}
+

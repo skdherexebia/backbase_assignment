@@ -9,7 +9,6 @@ class BooksCubit extends Cubit<BooksState> {
   final BooksUseCase _booksUseCase;
   BooksResponseEntity? booksResponseEntity;
   String searchText = '';
-  
 
   Future<void> onRefresh() async {
     getBooks(searchText);
@@ -18,9 +17,14 @@ class BooksCubit extends Cubit<BooksState> {
   Future<void> getBooks(String searchKey) async {
     emit(ShowShimmer());
     searchText = searchKey;
-    booksResponseEntity = await _booksUseCase.call(params: searchKey);
-    emit(HideShimmer());
-    emit(BooksFetched(booksResponseEntity?.docs ?? []));
-
+    try {
+      booksResponseEntity = await _booksUseCase.call(params: searchKey);
+      booksResponseEntity = await _booksUseCase.call(params: searchKey);
+      emit(HideShimmer());
+      emit(BooksFetched(booksResponseEntity?.docs ?? []));
+    } catch (e) {
+      emit(BooksFetched(booksResponseEntity?.docs ?? []));
+      emit(FailState("Something went wrong"));
+    }
   }
 }

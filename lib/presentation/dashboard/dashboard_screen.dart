@@ -1,4 +1,4 @@
-
+import 'package:backbase/common/extensions/sized_box_extension.dart';
 import 'package:backbase/common/theme/app_colors.dart';
 import 'package:backbase/core/di/service_locator.dart';
 import 'package:backbase/presentation/dashboard/dashboard_cubit.dart';
@@ -27,59 +27,98 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _dashboardCubit,
+    return BlocProvider.value(
+      value: _dashboardCubit,
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: AppColors.primary,
-          title: Text(
+          title: const Text(
             "Device Information",
             style: TextStyle(color: AppColors.white),
           ),
         ),
         backgroundColor: AppColors.backgroundDarkShadeOrange,
-        body: Container(
-          padding: EdgeInsets.all(14),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BlocBuilder<DashboardCubit, DashboardState>(
-                buildWhen:
-                    (previous, current) =>
-                        previous != current && current is BatteryPercentage,
-                builder: (context, state) {
-                  if (state is BatteryPercentage) {
-                    return Text(state.percentage);
-                  } else {
-                    return Lottie.asset(
-                      'assets/json/loader.json',
-                      backgroundLoading: false,
-                      addRepaintBoundary: true,
-                      animate: true,
-                    );
-                  }
-                },
+
+              // Battery Level Section
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Battery Level:",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  ),
+                  10.widthBox,
+                  BlocBuilder<DashboardCubit, DashboardState>(
+                    buildWhen: (previous, current) =>
+                        current is BatteryPercentage,
+                    builder: (context, state) {
+                      if (state is BatteryPercentage) {
+                        return Text(
+                          state.percentage,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      } else {
+                        return _buildLoader();
+                      }
+                    },
+                  ),
+                ],
               ),
-              BlocBuilder<DashboardCubit, DashboardState>(
-                buildWhen:
-                    (previous, current) =>
-                        previous != current && current is DeviceName,
-                builder: (context, state) {
-                  if (state is DeviceName) {
-                    return Text(state.deviceName);
-                  } else {
-                    return Lottie.asset(
-                      'assets/json/loader.json',
-                      backgroundLoading: false,
-                      addRepaintBoundary: true,
-                      animate: true,
-                    );
-                  }
-                },
+
+              40.heightBox,
+
+              // Device Information Section
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Device Information:",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  ),
+                  10.widthBox,
+                  Expanded(
+                    child: BlocBuilder<DashboardCubit, DashboardState>(
+                      buildWhen: (previous, current) => current is DeviceName,
+                      builder: (context, state) {
+                        if (state is DeviceName) {
+                          return Text(
+                            state.deviceName,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          );
+                        } else {
+                          return _buildLoader();
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildLoader() {
+    return SizedBox(
+      height: 60,
+      width: 80,
+      child: Lottie.asset(
+        'assets/json/loader.json',
+        animate: true,
       ),
     );
   }

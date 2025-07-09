@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:backbase/common/extensions/sized_box_extension.dart';
+import 'package:backbase/common/extensions/snackbar_extension.dart';
 import 'package:backbase/common/theme/app_colors.dart';
 import 'package:backbase/core/di/service_locator.dart';
 import 'package:backbase/presentation/books/books_cubit.dart';
@@ -32,66 +33,72 @@ class _BooksScreenState extends State<BooksScreen> {
   void initState() {
     super.initState();
     _booksCubit = locator.get<BooksCubit>();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _booksCubit.getBooks(''));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => _booksCubit,
-      child: Scaffold(
-        drawer: const Drawer(child: DawerWidget(),),
-        appBar:  AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: AppColors.primary,
-          title: Text("Books", style: TextStyle(color: AppColors.white)),
-        ),
-        backgroundColor: AppColors.backgroundDarkShadeOrange,
-        body: Container(
-          padding: EdgeInsets.all(14),
-          child: Column(
-            children: [
-              TextField(
-                controller: searchCtrl,
-                decoration: InputDecoration(
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      searchCtrl.text = '';
-                    },
-                    child: Icon(Icons.cancel),
+      child: BlocListener<BooksCubit, BooksState>(
+        listener: (context, state) {
+          if(state is FailState){
+            context.showSnackbar(
+              state.message,
+              backgroundColor: AppColors.secondary,
+            );
+          }
+        },
+        child: Scaffold(
+          drawer: const Drawer(child: DawerWidget()),
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: AppColors.primary,
+            title: Text("Books", style: TextStyle(color: AppColors.white)),
+          ),
+          backgroundColor: AppColors.backgroundDarkShadeOrange,
+          body: Container(
+            padding: EdgeInsets.all(14),
+            child: Column(
+              children: [
+                TextField(
+                  controller: searchCtrl,
+                  decoration: InputDecoration(
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        searchCtrl.text = '';
+                      },
+                      child: Icon(Icons.cancel),
+                    ),
+                    hintText: "Search book by title",
                   ),
-                  hintText: "Search book by title",
+                  onChanged: _onSearchChanged,
+                  keyboardType: TextInputType.text,
                 ),
-                onChanged: _onSearchChanged,
-                keyboardType: TextInputType.text,
-              ),
-              16.heightBox,
-              Expanded(
-                child: RefreshIndicator(
-                  onRefresh: _booksCubit.onRefresh,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        BlocBuilder<BooksCubit, BooksState>(
-                          builder: (context, state) {
-                            if (state is BooksFetched) {
-                              return BookList(list: state.list);
-                            } else if(state is ShowShimmer) {
-                              return ShimmerList();
-                            }else{
-                              return  Container(
-                                color: Colors.amber,
-                                height: 300,
-                                child: Text("No Books found!"));
-                            }
-                          },
-                        ),
-                      ],
+                16.heightBox,
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: _booksCubit.onRefresh,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          BlocBuilder<BooksCubit, BooksState>(
+                            builder: (context, state) {
+                              if (state is BooksFetched) {
+                                return BookList(list: state.list);
+                              } else if (state is ShowShimmer) {
+                                return ShimmerList();
+                              } else {
+                                return Text("No Books found!");
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

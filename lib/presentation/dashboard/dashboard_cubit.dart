@@ -1,7 +1,6 @@
 import 'package:backbase/core/user_case/base_use_case.dart';
 import 'package:backbase/domain/use_case/dashboard/get_battery_per_use_case.dart';
 import 'package:backbase/domain/use_case/dashboard/get_device_name_use_case.dart';
-import 'package:backbase/domain/use_case/dashboard/get_os_version_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'dashboard_state.dart';
 
@@ -9,12 +8,10 @@ class DashboardCubit extends Cubit<DashboardState> {
   DashboardCubit(
     this._batteryPerUseCase,
     this._deviceNameUseCase,
-    this._getOsVersionUseCase,
   ) : super(DashboardInitial());
 
   final GetBatteryPerUseCase _batteryPerUseCase;
   final GetDeviceNameUseCase _deviceNameUseCase;
-  final GetOsVersionUseCase _getOsVersionUseCase;
 
   void getBatteryLevel() async {
      await Future.delayed(Duration(seconds: 2));

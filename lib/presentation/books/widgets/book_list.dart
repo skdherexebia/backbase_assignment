@@ -9,17 +9,24 @@ class BookList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return list.isNotEmpty? ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        DocsEntity item = list[index];
-        return BookItem(doc: item);
-      },
-      itemCount: list.length, separatorBuilder: (BuildContext context, int index) { 
-        return 10.heightBox;
-       },
-    ):Text("No Books found");
-    
+    return list.isNotEmpty
+        ? ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            DocsEntity item = list[index];
+            return BookItem(doc: item);
+          },
+          itemCount: list.length,
+          separatorBuilder: (BuildContext context, int index) {
+            return 10.heightBox;
+          },
+        )
+        : const Center(
+          child: Text(
+            "No Books Found",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+        );
   }
 }

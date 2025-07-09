@@ -15,7 +15,7 @@ class BookDetailsCubit extends Cubit<BooksDetailsState> {
     await Future.delayed(Duration(seconds: 1));
   }
 
-  getBook() async {
+  getBookStatus() async {
     bool res = await _getBookUseCase.call(params: book);
     if (res) {
        emit(BookExistInMyBookState());
@@ -27,12 +27,14 @@ class BookDetailsCubit extends Cubit<BooksDetailsState> {
   setBookDetails(DocsEntity doc) async {
     book = doc;
     emit(DataSet());
+    getBookStatus();
   }
 
   saveBook() async {
     bool res = await _saveBookUseCase.call(params: book);
     if (res) {
        emit(AddToMyBookSuccessState("Book saved successfully!"));
+       getBookStatus();
     } else {
       emit(AddToMyBookSFailState("Something went wrong!"));
     }
@@ -41,7 +43,8 @@ class BookDetailsCubit extends Cubit<BooksDetailsState> {
   removeBook() async {
     bool res = await _saveBookUseCase.call(params: book);
     if (res) {
-       emit(AddToMyBookSuccessState("Book saved successfully!"));
+       emit(AddToMyBookSuccessState("Book removed successfully"));
+       getBookStatus();
     } else {
       emit(AddToMyBookSFailState("Something went wrong!"));
     }

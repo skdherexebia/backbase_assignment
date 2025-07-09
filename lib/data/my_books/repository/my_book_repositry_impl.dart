@@ -11,7 +11,6 @@ class MyBookRepositryImpl extends MyBookRepository {
     List<MyBookEntity> list = [];
 
     List<Map> results = await db.rawQuery('SELECT * FROM books');
-    print(results);
     for(var result in results){
       list.add(MyBookEntity(title: result['title'], key: result['key'],coverI:result['cover_i'] ,authorName: result['author'].toString().split(',')));
     }

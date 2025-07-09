@@ -36,6 +36,7 @@ void _setupBooksCubit() {
 void _setupBookDetailsCubit() {
   locator.registerFactory(() => BookDetailsCubit(locator.get(),locator.get()));
   locator.registerFactory(() => SaveBookUseCase(locator.get()));
+  locator.registerFactory(() => GetBookUseCase(locator.get()));
 }
 
 void _setMyBooksCubit() {
@@ -45,7 +46,7 @@ void _setMyBooksCubit() {
 
 void _setDashboardCubit() {
   locator.registerFactory(
-    () => DashboardCubit(locator.get(), locator.get(), locator.get()),
+    () => DashboardCubit(locator.get(), locator.get()),
   );
   locator.registerFactory(() => GetBatteryPerUseCase(locator.get()));
   locator.registerFactory(() => GetDeviceNameUseCase(locator.get()));
