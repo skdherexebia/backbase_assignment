@@ -6,9 +6,9 @@ import 'package:flutter/painting.dart';
 class AppColors {
   AppColors._();
 
-  static const Color backgroundDarkShadeOrange = Color(0xffFFF8E1);
+  static const Color backgroundDarkShadeOrange = Color(0xFFF7FAFC);
   static const Color white = Color(0xFFFFFFFF);
-  static const Color primary = Color(0xffFB8C00);
+  static const Color primary = Color(0xff1976D2);
   static const Color secondary = Color(0xffFB8C00);
   static const Color disabled = Color(0xffFFCC80);
   static const Color accent = Color(0xffFFF3E0);

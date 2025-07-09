@@ -1,5 +1,6 @@
-import 'package:demo/core/di/service_locator.dart';
-import 'package:demo/presentation/splash_screen/splash_cubit.dart';
+import 'package:backbase/core/app_router/route_constant.dart';
+import 'package:backbase/core/di/service_locator.dart';
+import 'package:backbase/presentation/splash_screen/splash_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -31,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
       child: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
           if(state is NavigateToHome){
-            context.go('/details');
+            context.go(AppRouteConstants.booksRouteName);
           }
         },
         child: Scaffold(

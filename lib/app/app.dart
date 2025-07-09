@@ -1,7 +1,9 @@
-import 'package:demo/core/router.dart';
+import 'package:backbase/core/router.dart';
 import 'package:flutter/material.dart';
 
-void startApp() {
+void startApp() async {
+
+
    WidgetsFlutterBinding
       .ensureInitialized(); //Scenario: when app launches with deeplink
   runApp(const MyApp());
