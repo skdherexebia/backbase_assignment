@@ -2,7 +2,7 @@ import 'package:backbase/common/extensions/sized_box_extension.dart';
 import 'package:backbase/common/extensions/snackbar_extension.dart';
 import 'package:backbase/common/theme/app_colors.dart';
 import 'package:backbase/core/di/service_locator.dart';
-import 'package:backbase/domain/entity/books_response_entity.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
 import 'package:backbase/presentation/book_details/book_details_cubit.dart';
 import 'package:backbase/presentation/book_details/widgets/book_item.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'package:backbase/core/user_case/base_use_case.dart';
-import 'package:backbase/domain/entity/books_response_entity.dart';
-import 'package:backbase/domain/repository/book_details_repository.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
+import 'package:backbase/domain/book_details/repository/book_details_repository.dart';
 
 class SaveBookUseCase
     extends UseCase<bool, DocsEntity> {

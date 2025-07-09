@@ -40,7 +40,7 @@ class MainActivity: FlutterActivity() {
                 cameraManager.getCameraCharacteristics(id)
                     .get(android.hardware.camera2.CameraCharacteristics.FLASH_INFO_AVAILABLE) == true
             }
-            
+
             if (call.method == "turnOn") {
                 cameraId?.let { cameraManager.setTorchMode(it, true) }
                 result.success(null)

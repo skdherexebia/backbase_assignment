@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:backbase/common/extensions/sized_box_extension.dart';
 import 'package:backbase/common/extensions/image_url_extension.dart';
-import 'package:backbase/domain/entity/books_response_entity.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
 import 'package:backbase/presentation/book_details/widgets/book_cover.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
 import 'package:backbase/core/user_case/base_use_case.dart';
-import 'package:backbase/domain/entity/books_response_entity.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
 import 'package:backbase/domain/my_books/entity/my_book_entity.dart';
 import 'package:backbase/domain/my_books/use_case/my_book_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

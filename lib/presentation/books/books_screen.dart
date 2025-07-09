@@ -67,6 +67,7 @@ class _BooksScreenState extends State<BooksScreen> {
                     suffixIcon: InkWell(
                       onTap: () {
                         searchCtrl.text = '';
+                        _booksCubit.getBooks("");
                       },
                       child: Icon(Icons.cancel),
                     ),
@@ -79,22 +80,23 @@ class _BooksScreenState extends State<BooksScreen> {
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: _booksCubit.onRefresh,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          BlocBuilder<BooksCubit, BooksState>(
-                            builder: (context, state) {
-                              if (state is BooksFetched) {
-                                return BookList(list: state.list);
-                              } else if (state is ShowShimmer) {
-                                return ShimmerList();
-                              } else {
-                                return Text("Start typing a book title to search.",style: Theme.of(context).textTheme.appText16Primary(context),);
-                              }
-                            },
-                          ),
-                        ],
-                      ),
+                    child: BlocBuilder<BooksCubit, BooksState>(
+                      builder: (context, state) {
+                        if (state is BooksFetched) {
+                          return BookList(list: state.list,
+                          isLoading: false,
+                          callback: () {
+                              _booksCubit.loadMore();
+                          },
+                          );
+                        } else if (state is ShowShimmer) {
+                          return ShimmerList();
+                        } else if(state is BooksInitial){
+                          return Text("Start typing a book title to search.",style: Theme.of(context).textTheme.appText16Primary(context),);
+                        }else{
+                          return SizedBox.shrink();
+                        }
+                      },
                     ),
                   ),
                 ),

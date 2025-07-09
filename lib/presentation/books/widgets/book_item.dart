@@ -3,7 +3,7 @@ import 'package:backbase/common/extensions/sized_box_extension.dart';
 import 'package:backbase/common/theme/app_colors.dart';
 import 'package:backbase/common/theme/app_theme.dart';
 import 'package:backbase/core/app_router/route_constant.dart';
-import 'package:backbase/domain/entity/books_response_entity.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

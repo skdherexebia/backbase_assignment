@@ -1,4 +1,4 @@
-import 'package:backbase/domain/repository/device_infomation_repository.dart';
+import 'package:backbase/domain/device_information/repository/device_infomation_repository.dart';
 import 'package:flutter/services.dart';
 
 class DeviceInfoRepositoryImpl extends DeviceInfomationRepository {

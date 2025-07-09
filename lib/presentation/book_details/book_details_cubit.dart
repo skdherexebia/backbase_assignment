@@ -1,7 +1,7 @@
-import 'package:backbase/domain/entity/books_response_entity.dart';
-import 'package:backbase/domain/use_case/get_book_use_case.dart';
-import 'package:backbase/domain/use_case/remove_book_use_case.dart';
-import 'package:backbase/domain/use_case/save_book_use_case.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
+import 'package:backbase/domain/book_details/use_case/get_book_use_case.dart';
+import 'package:backbase/domain/book_details/use_case/remove_book_use_case.dart';
+import 'package:backbase/domain/book_details/use_case/save_book_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'book_details_state.dart';
 

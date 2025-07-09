@@ -1,5 +1,5 @@
 
-import 'package:backbase/domain/entity/books_response_entity.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
 
 abstract class BookDetailsRepository {
   Future<bool> saveBook(DocsEntity book);

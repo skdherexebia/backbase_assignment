@@ -1,4 +1,4 @@
-import 'package:backbase/domain/repository/flashlight_repository.dart';
+import 'package:backbase/domain/flashlight/repository/flashlight_repository.dart';
 import 'package:flutter/services.dart';
 
 class FlashlightRepositoryImpl extends FlashlightRepository {

@@ -1,7 +1,9 @@
-import 'package:backbase/data/books/model/books_response_model.dart';
 import 'package:backbase/data/books/endpoint/books_endpoint.dart';
+import 'package:backbase/data/books/model/books_request_model.dart';
+import 'package:backbase/data/books/model/books_response_model.dart';
 import 'package:backbase/data/books/repository/books_repository_impl.dart';
-import 'package:backbase/domain/entity/books_response_entity.dart';
+import 'package:backbase/domain/books/entity/books_request_entity.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -15,6 +17,9 @@ void main() {
   setUp(() {
     mockBooksEndpoint = MockBooksEndpoint();
     repository = BooksRepositoryImpl(mockBooksEndpoint);
+
+    // Fallback for complex objects
+    registerFallbackValue(BooksRequestModel(title: '', limit: 0, offset: 0));
   });
 
   final tBooksModel = BooksModel(
@@ -22,47 +27,54 @@ void main() {
     start: 0,
     numFoundExact: true,
     booksModelNumFound: 1,
-    documentationUrl: 'https://example.com',
+    documentationUrl: 'https://openlibrary.org/dev/docs/api/search',
     offset: 0,
     docs: [
       Doc(
-        title: 'Flutter Clean Architecture',
-        authorName: ['John Doe'],
-        key: 'key_1',
-        coverEditionKey: 'edition_1',
+        title: 'The Psychopath Test',
+        authorName: ['Tom Wolfe'],
+        key: '/works/OL1925362W',
+        coverEditionKey: 'OL14986907M',
         subtitle: 'A practical guide',
-        coverI: 123, ebookAccess: '', editionCount: 4, hasFulltext: false, publicScanB: false,
+        coverI: 7240390,
+        ebookAccess: '',
+        editionCount: 4,
+        hasFulltext: false,
+        publicScanB: false,
       ),
-    ], q: '',
+    ],
+    q: '',
   );
 
   group('BooksRepositoryImpl', () {
+    final tRequestEntity = BooksRequestEntity(title: 'Test', limit: 10, offset: 0);
+
     test('should return BooksResponseEntity on successful fetch', () async {
-      when(() => mockBooksEndpoint.getBooks(title: 'flutter'))
+      when(() => mockBooksEndpoint.getBooks(any()))
           .thenAnswer((_) async => tBooksModel);
 
-      final result = await repository.getBooks('flutter');
+      final result = await repository.getBooks(tRequestEntity);
 
       expect(result, isA<BooksResponseEntity>());
       expect(result.docs.length, 1);
-      expect(result.docs[0].title, 'Flutter Clean Architecture');
-      verify(() => mockBooksEndpoint.getBooks(title: 'flutter')).called(1);
+      expect(result.docs[0].title, 'The Psychopath Test');
+      verify(() => mockBooksEndpoint.getBooks(any())).called(1);
     });
 
     test('should throw Connection Timeout error on DioExceptionType.connectionTimeout', () async {
-      when(() => mockBooksEndpoint.getBooks(title: 'flutter')).thenThrow(
+      when(() => mockBooksEndpoint.getBooks(any())).thenThrow(
         DioException(
           requestOptions: RequestOptions(path: ''),
           type: DioExceptionType.connectionTimeout,
         ),
       );
 
-      expect(() => repository.getBooks('flutter'),
-          throwsA(predicate((e) => e is Exception && e.toString().contains('Connection Timeout'))));
+      expect(() => repository.getBooks(tRequestEntity),
+          throwsA(predicate((e) => e.toString().contains('Connection Timeout'))));
     });
 
     test('should throw API error if DioException has response', () async {
-      when(() => mockBooksEndpoint.getBooks(title: 'flutter')).thenThrow(
+      when(() => mockBooksEndpoint.getBooks(any())).thenThrow(
         DioException(
           response: Response(
             requestOptions: RequestOptions(path: ''),
@@ -73,27 +85,27 @@ void main() {
         ),
       );
 
-      expect(() => repository.getBooks('flutter'),
+      expect(() => repository.getBooks(tRequestEntity),
           throwsA(predicate((e) => e.toString().contains('API Error: 400 Bad Request'))));
     });
 
-    test('should throw generic error on unknown DioException', () async {
-      when(() => mockBooksEndpoint.getBooks(title: 'flutter')).thenThrow(
+    test('should throw Unexpected Error on unknown DioException', () async {
+      when(() => mockBooksEndpoint.getBooks(any())).thenThrow(
         DioException(
           requestOptions: RequestOptions(path: ''),
           message: 'Something broke',
         ),
       );
 
-      expect(() => repository.getBooks('flutter'),
+      expect(() => repository.getBooks(tRequestEntity),
           throwsA(predicate((e) => e.toString().contains('Unexpected Error'))));
     });
 
-    test('should throw fallback error on non-DioException', () async {
-      when(() => mockBooksEndpoint.getBooks(title: 'flutter'))
+    test('should throw Something went wrong on non-DioException', () async {
+      when(() => mockBooksEndpoint.getBooks(any()))
           .thenThrow(Exception('Unknown'));
 
-      expect(() => repository.getBooks('flutter'),
+      expect(() => repository.getBooks(tRequestEntity),
           throwsA(predicate((e) => e.toString().contains('Something went wrong'))));
     });
   });

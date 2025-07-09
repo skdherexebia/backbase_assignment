@@ -2,7 +2,7 @@ import 'package:backbase/common/extensions/image_url_extension.dart';
 import 'package:backbase/common/extensions/sized_box_extension.dart';
 import 'package:backbase/common/theme/app_colors.dart';
 import 'package:backbase/core/app_router/route_constant.dart';
-import 'package:backbase/domain/entity/books_response_entity.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
 import 'package:backbase/domain/my_books/entity/my_book_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

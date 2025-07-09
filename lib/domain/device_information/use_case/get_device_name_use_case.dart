@@ -1,5 +1,5 @@
 import 'package:backbase/core/user_case/base_use_case.dart';
-import 'package:backbase/domain/repository/device_infomation_repository.dart';
+import 'package:backbase/domain/device_information/repository/device_infomation_repository.dart';
 
 class GetDeviceNameUseCase
     extends UseCase<String, NoParams> {

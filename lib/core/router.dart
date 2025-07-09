@@ -1,5 +1,5 @@
 import 'package:backbase/core/app_router/route_constant.dart';
-import 'package:backbase/domain/entity/books_response_entity.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
 import 'package:backbase/presentation/book_details/book_details_screen.dart';
 import 'package:backbase/presentation/books/books_screen.dart';
 import 'package:backbase/presentation/dashboard/dashboard_screen.dart';

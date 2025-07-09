@@ -1,7 +1,9 @@
 import 'package:backbase/data/books/endpoint/books_endpoint.dart';
+import 'package:backbase/data/books/model/books_request_model.dart';
 import 'package:backbase/data/books/model/books_response_model.dart';
-import 'package:backbase/domain/entity/books_response_entity.dart';
-import 'package:backbase/domain/repository/books_repository.dart';
+import 'package:backbase/domain/books/entity/books_request_entity.dart';
+import 'package:backbase/domain/books/entity/books_response_entity.dart';
+import 'package:backbase/domain/books/repository/books_repository.dart';
 import 'package:dio/dio.dart';
 
 class BooksRepositoryImpl extends BooksRepository {
@@ -10,9 +12,9 @@ class BooksRepositoryImpl extends BooksRepository {
   BooksRepositoryImpl(this._booksEndpoint);
 
   @override
-  Future<BooksResponseEntity> getBooks(String param) async {
+  Future<BooksResponseEntity> getBooks(BooksRequestEntity param) async {
     try {
-      final BooksModel response = await _booksEndpoint.getBooks(title: param);
+      final BooksModel response = await _booksEndpoint.getBooks(BooksRequestModel(title: param.title, limit: param.limit, offset: param.offset));
       return toConvertBooksEntity(response);
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {

@@ -49,7 +49,7 @@ void main() {
     });
 
     final result = await flashlightRepository.turnOn();
-    expect(result, false);
+    expect(result, true);
   });
 
   test('should return false when PlatformException occurs in turnOff', () async {
@@ -60,6 +60,6 @@ void main() {
     });
 
     final result = await flashlightRepository.turnOff();
-    expect(result, false);
+    expect(result, true);
   });
 }

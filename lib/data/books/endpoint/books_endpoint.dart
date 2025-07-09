@@ -1,3 +1,4 @@
+import 'package:backbase/data/books/model/books_request_model.dart';
 import 'package:backbase/data/books/model/books_response_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
@@ -10,8 +11,8 @@ abstract class BooksEndpoint {
 
 
   @GET("")
-  Future<BooksModel> getBooks({
-    @Query("title") required String title,
-  });
+  Future<BooksModel> getBooks(
+    @Queries() BooksRequestModel param,
+  );
 
 }

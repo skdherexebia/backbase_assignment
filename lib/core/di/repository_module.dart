@@ -6,10 +6,10 @@ import 'package:backbase/data/device_information/repository/device_info_reposito
 import 'package:backbase/data/flashlight/repository/flashlight_repository_impl.dart';
 import 'package:backbase/data/my_books/repository/my_book_repositry_impl.dart';
 import 'package:backbase/domain/my_books/repository/my_book_repository.dart';
-import 'package:backbase/domain/repository/book_details_repository.dart';
-import 'package:backbase/domain/repository/books_repository.dart';
-import 'package:backbase/domain/repository/device_infomation_repository.dart';
-import 'package:backbase/domain/repository/flashlight_repository.dart';
+import 'package:backbase/domain/book_details/repository/book_details_repository.dart';
+import 'package:backbase/domain/books/repository/books_repository.dart';
+import 'package:backbase/domain/device_information/repository/device_infomation_repository.dart';
+import 'package:backbase/domain/flashlight/repository/flashlight_repository.dart';
 
 void setupRepositories() async {
   locator.registerFactory<BooksRepository>(

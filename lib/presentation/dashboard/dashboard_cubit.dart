@@ -1,6 +1,6 @@
 import 'package:backbase/core/user_case/base_use_case.dart';
-import 'package:backbase/domain/use_case/dashboard/get_battery_per_use_case.dart';
-import 'package:backbase/domain/use_case/dashboard/get_device_name_use_case.dart';
+import 'package:backbase/domain/device_information/use_case/get_battery_per_use_case.dart';
+import 'package:backbase/domain/device_information/use_case/get_device_name_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'dashboard_state.dart';
 

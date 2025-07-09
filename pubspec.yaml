@@ -45,11 +45,12 @@ dependencies:
   fade_shimmer: ^2.4.0
   cached_network_image: ^3.4.1
   lottie: ^3.3.1
-  mocktail: ^1.0.4
+  bloc_test: ^10.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mocktail: ^1.0.4
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
