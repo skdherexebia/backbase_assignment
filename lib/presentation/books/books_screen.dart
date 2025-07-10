@@ -34,6 +34,12 @@ class _BooksScreenState extends State<BooksScreen> {
   void initState() {
     super.initState();
     _booksCubit = locator.get<BooksCubit>();
+    searchCtrl =TextEditingController(text: 'Happy');
+
+   WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _booksCubit.getBooks(searchCtrl.text),
+    );
+
   }
 
   @override
