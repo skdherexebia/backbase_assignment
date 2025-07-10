@@ -55,17 +55,25 @@ class _BooksScreenState extends State<BooksDetailsScreen> {
               builder: (context, state) {
                 if (state is BookExistInMyBookState) {
                   return InkWell(
-                    onTap:() {
+                    onTap: () {
                       _bookDetailsCubit.removeBook();
                     },
-                    child: Icon(Icons.favorite, size: 50,color: AppColors.primary,),
+                    child: Icon(
+                      Icons.favorite,
+                      size: 50,
+                      color: AppColors.primary,
+                    ),
                   );
                 } else {
                   return InkWell(
-                     onTap:() {
+                    onTap: () {
                       _bookDetailsCubit.saveBook();
                     },
-                    child: Icon(Icons.favorite, size: 50,color: AppColors.textMuted,),
+                    child: Icon(
+                      Icons.favorite,
+                      size: 50,
+                      color: AppColors.textMuted,
+                    ),
                   );
                 }
               },

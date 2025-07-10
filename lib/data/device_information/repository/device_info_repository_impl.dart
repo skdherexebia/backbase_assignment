@@ -5,13 +5,12 @@ class DeviceInfoRepositoryImpl extends DeviceInfomationRepository {
   static const platform = MethodChannel('backbase/channels');
   String batteryLevel = '';
   String deviceName = '';
-  
+
   @override
-  Future<String> getBatteryPercentage() async{
+  Future<String> getBatteryPercentage() async {
     try {
       final int result = await platform.invokeMethod('getBatteryLevel');
       batteryLevel = ' $result%';
-
     } on PlatformException catch (e) {
       batteryLevel = "Failed to get battery level: '${e.message}'.";
     }
@@ -20,9 +19,9 @@ class DeviceInfoRepositoryImpl extends DeviceInfomationRepository {
   }
 
   @override
-  Future<String> getDeviceName() async{
-    try { 
-       deviceName = await platform.invokeMethod('getDeviceName');
+  Future<String> getDeviceName() async {
+    try {
+      deviceName = await platform.invokeMethod('getDeviceName');
     } on PlatformException catch (e) {
       deviceName = "Failed to get battery level: '${e.message}'.";
     }

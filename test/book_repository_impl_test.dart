@@ -17,8 +17,6 @@ void main() {
   setUp(() {
     mockBooksEndpoint = MockBooksEndpoint();
     repository = BooksRepositoryImpl(mockBooksEndpoint);
-
-    // Fallback for complex objects
     registerFallbackValue(BooksRequestModel(title: '', limit: 0, offset: 0));
   });
 
@@ -47,11 +45,16 @@ void main() {
   );
 
   group('BooksRepositoryImpl', () {
-    final tRequestEntity = BooksRequestEntity(title: 'Test', limit: 10, offset: 0);
+    final tRequestEntity = BooksRequestEntity(
+      title: 'Test',
+      limit: 10,
+      offset: 0,
+    );
 
     test('should return BooksResponseEntity on successful fetch', () async {
-      when(() => mockBooksEndpoint.getBooks(any()))
-          .thenAnswer((_) async => tBooksModel);
+      when(
+        () => mockBooksEndpoint.getBooks(any()),
+      ).thenAnswer((_) async => tBooksModel);
 
       final result = await repository.getBooks(tRequestEntity);
 
@@ -61,17 +64,24 @@ void main() {
       verify(() => mockBooksEndpoint.getBooks(any())).called(1);
     });
 
-    test('should throw Connection Timeout error on DioExceptionType.connectionTimeout', () async {
-      when(() => mockBooksEndpoint.getBooks(any())).thenThrow(
-        DioException(
-          requestOptions: RequestOptions(path: ''),
-          type: DioExceptionType.connectionTimeout,
-        ),
-      );
+    test(
+      'should throw Connection Timeout error on DioExceptionType.connectionTimeout',
+      () async {
+        when(() => mockBooksEndpoint.getBooks(any())).thenThrow(
+          DioException(
+            requestOptions: RequestOptions(path: ''),
+            type: DioExceptionType.connectionTimeout,
+          ),
+        );
 
-      expect(() => repository.getBooks(tRequestEntity),
-          throwsA(predicate((e) => e.toString().contains('Connection Timeout'))));
-    });
+        expect(
+          () => repository.getBooks(tRequestEntity),
+          throwsA(
+            predicate((e) => e.toString().contains('Connection Timeout')),
+          ),
+        );
+      },
+    );
 
     test('should throw API error if DioException has response', () async {
       when(() => mockBooksEndpoint.getBooks(any())).thenThrow(
@@ -85,8 +95,12 @@ void main() {
         ),
       );
 
-      expect(() => repository.getBooks(tRequestEntity),
-          throwsA(predicate((e) => e.toString().contains('API Error: 400 Bad Request'))));
+      expect(
+        () => repository.getBooks(tRequestEntity),
+        throwsA(
+          predicate((e) => e.toString().contains('API Error: 400 Bad Request')),
+        ),
+      );
     });
 
     test('should throw Unexpected Error on unknown DioException', () async {
@@ -97,16 +111,23 @@ void main() {
         ),
       );
 
-      expect(() => repository.getBooks(tRequestEntity),
-          throwsA(predicate((e) => e.toString().contains('Unexpected Error'))));
+      expect(
+        () => repository.getBooks(tRequestEntity),
+        throwsA(predicate((e) => e.toString().contains('Unexpected Error'))),
+      );
     });
 
     test('should throw Something went wrong on non-DioException', () async {
-      when(() => mockBooksEndpoint.getBooks(any()))
-          .thenThrow(Exception('Unknown'));
+      when(
+        () => mockBooksEndpoint.getBooks(any()),
+      ).thenThrow(Exception('Unknown'));
 
-      expect(() => repository.getBooks(tRequestEntity),
-          throwsA(predicate((e) => e.toString().contains('Something went wrong'))));
+      expect(
+        () => repository.getBooks(tRequestEntity),
+        throwsA(
+          predicate((e) => e.toString().contains('Something went wrong')),
+        ),
+      );
     });
   });
 }

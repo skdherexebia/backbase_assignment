@@ -27,7 +27,7 @@ class _DawerWidgetState extends State<DawerWidget> {
         child: Scaffold(
           body: Column(
             children: [
-               ListTile(
+              ListTile(
                 leading: Container(
                   width: 25,
                   height: 25,
@@ -35,10 +35,7 @@ class _DawerWidgetState extends State<DawerWidget> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Icon(
-                    Icons.book,
-                    color: AppColors.primary,
-                  ),
+                  child: Icon(Icons.book, color: AppColors.primary),
                 ),
                 title: Text("My Books"),
                 onTap: () {
@@ -46,7 +43,7 @@ class _DawerWidgetState extends State<DawerWidget> {
                   context.push(AppRouteConstants.myBooksRouteName);
                 },
               ),
-              
+
               ListTile(
                 leading: Container(
                   width: 25,
@@ -71,10 +68,7 @@ class _DawerWidgetState extends State<DawerWidget> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Icon(
-                    Icons.flash_auto,
-                    color: AppColors.primary,
-                  ),
+                  child: Icon(Icons.flash_auto, color: AppColors.primary),
                 ),
                 title: Text("Flashlight"),
                 onTap: () {

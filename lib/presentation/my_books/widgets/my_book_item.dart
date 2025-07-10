@@ -16,8 +16,18 @@ class MyBookItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async{
-         context.pushNamed(AppRouteConstants.bookDetailsRouteName, extra: DocsEntity(title: book.title, key: book.key,authorKey: book.authorKey,authorName: book.authorName,coverEditionKey: book.coverEditionKey,coverI: book.coverI));
+      onTap: () async {
+        context.pushNamed(
+          AppRouteConstants.bookDetailsRouteName,
+          extra: DocsEntity(
+            title: book.title,
+            key: book.key,
+            authorKey: book.authorKey,
+            authorName: book.authorName,
+            coverEditionKey: book.coverEditionKey,
+            coverI: book.coverI,
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(

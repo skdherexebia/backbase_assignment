@@ -9,8 +9,8 @@ class ShimmerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-         color: AppColors.white,
-         borderRadius: BorderRadius.circular(8)
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Padding(
@@ -22,7 +22,8 @@ class ShimmerItem extends StatelessWidget {
               width: 100,
               radius: 4,
               fadeTheme: FadeTheme.light,
-              millisecondsDelay: 300, height: 100,
+              millisecondsDelay: 300,
+              height: 100,
             ),
             SizedBox(width: 8),
             Column(
@@ -30,7 +31,6 @@ class ShimmerItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 FadeShimmer(
-                  
                   height: 18,
                   width: 150,
                   radius: 4,

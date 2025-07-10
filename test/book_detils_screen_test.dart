@@ -30,7 +30,7 @@ void main() {
     when(() => mockCubit.book).thenReturn(testDoc);
     when(() => mockCubit.saveBook()).thenAnswer((_) async {});
     when(() => mockCubit.removeBook()).thenAnswer((_) async {});
-    when(() => mockCubit.close()).thenAnswer((_) async {}); // 👈 Add this line
+    when(() => mockCubit.close()).thenAnswer((_) async {});
   });
 
   Widget buildTestWidget() {
@@ -51,7 +51,7 @@ void main() {
     await tester.pumpWidget(buildTestWidget());
 
     await tester.tap(find.byIcon(Icons.favorite));
-    await tester.pump(); // safer than pumpAndSettle for this case
+    await tester.pump(); 
 
     verify(() => mockCubit.saveBook()).called(1);
   });
